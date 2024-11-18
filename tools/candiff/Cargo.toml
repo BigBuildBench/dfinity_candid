@@ -1,0 +1,29 @@
+[package]
+name = "candiff"
+version = "0.1.0"
+edition = "2018"
+authors = ["DFINITY Team"]
+description = "Relate candid values that change over time."
+homepage = "https://docs.rs/candiff"
+documentation = "https://docs.rs/candiff"
+repository = "https://github.com/dfinity/candid"
+license = "Apache-2.0"
+readme = "README.md"
+
+categories = ["encoding", "wasm"]
+keywords = ["internet-computer", "candid", "dfinity", "delta", "diff"]
+include = ["src", "README.md", "Cargo.toml", "LICENSE"]
+
+[lib]
+name = "candiff"
+
+[dependencies]
+
+[dev-dependencies]
+assert_cmd = "1.0.1"
+predicates = "1.0.5"
+
+[[bin]]
+name = "candiff"
+path = "src/candiff.rs"
+

@@ -1,0 +1,16 @@
+[workspace]
+
+[package]
+name = "bench"
+edition = "2021"
+
+[[bin]]
+name = "bench"
+path = "bench.rs"
+
+[dependencies]
+
+[patch.crates-io]
+candid = { path = "../candid" }
+candid_derive = { path = "../candid_derive" }
+ic_principal = { path = "../ic_principal" }

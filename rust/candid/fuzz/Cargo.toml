@@ -1,0 +1,26 @@
+[package]
+name = "candid-fuzz"
+version = "0.0.0"
+authors = ["Automatically generated"]
+publish = false
+edition = "2018"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+
+[workspace]
+members = ["."]
+
+[[bin]]
+name = "parser"
+path = "fuzz_targets/parser.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "type_decoder"
+path = "fuzz_targets/type_decoder.rs"
+test = false
+doc = false

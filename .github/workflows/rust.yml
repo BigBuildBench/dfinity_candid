@@ -1,0 +1,57 @@
+name: Rust
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install stable toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+        components: rustfmt, clippy
+    - name: Cache cargo build
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cargo/registry
+          ~/.cargo/git
+          target
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+    - name: Build
+      run: |
+        cargo build
+    - name: Run tests
+      run: |
+        cargo test --no-default-features
+        cargo test
+        cargo test --features all
+    - name: fmt
+      run: cargo fmt -v -- --check
+    - name: lint
+      run: cargo clippy --features all --tests -- -D warnings
+    - name: doc
+      run: cargo doc
+  fuzzing:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Rust (nightly)
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: nightly
+        override: true
+    - name: Install cargo-fuzz
+      run: |
+        cargo install cargo-fuzz
+    - name: Build fuzzers
+      run: |
+        cd rust/candid
+        cargo +nightly fuzz build

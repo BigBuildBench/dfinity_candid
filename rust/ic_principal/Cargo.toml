@@ -1,0 +1,31 @@
+[package]
+name = "ic_principal"
+version = "0.1.1"
+authors = ["DFINITY Stiftung <sdk@dfinity.org>"]
+edition = "2021"
+rust-version.workspace = true
+description = "Principal type used on the Internet Computer."
+homepage = "https://internetcomputer.org/docs/current/references/id-encoding-spec"
+documentation = "https://docs.rs/ic_principal"
+repository = "https://github.com/dfinity/candid"
+license = "Apache-2.0"
+readme = "README.md"
+categories = ["data-structures", "no-std"]
+keywords = ["internet-computer", "types", "dfinity"]
+include = ["src", "Cargo.toml", "LICENSE", "README.md"]
+
+[dependencies]
+
+[dev-dependencies]
+serde_cbor = "0.11.2"
+serde_json = "1.0.74"
+serde_test = "1.0.137"
+impls = "1"
+
+[features]
+all = ['arbitrary', 'default']
+default = ['convert', 'self_authenticating', 'serde']
+arbitrary = ['dep:arbitrary', 'serde']
+convert = ['dep:crc32fast', 'dep:data-encoding', 'dep:thiserror']
+self_authenticating = ['dep:sha2']
+serde = ['dep:serde', 'convert']
